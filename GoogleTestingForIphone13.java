@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static ForMe.DPBase.Phone_TDM;
+
 public class GoogleTestingForIphone13{
     public static void main (String args[]) throws IOException {
         // This is for set up selenium Web driver
@@ -33,7 +35,8 @@ public class GoogleTestingForIphone13{
         FileUtils.copyFile(fil,new File(".//screenshot/screen.jpg"));
 
        s.click();
-       s.sendKeys("iphone13");
+        String content1 = Phone_TDM;
+       s.sendKeys( content1);
        s.sendKeys(Keys.ENTER);
        //getting the title  for the page
         System.out.println(driver.getTitle());
@@ -47,10 +50,10 @@ public class GoogleTestingForIphone13{
       WebElement check= driver.findElement(By.xpath("//*[.=\"Apple iPhone 13\"]"));
         check.getText();
        String toCheck= check.getText();
-       if(toCheck.contentEquals("Apple iPhone 13"))
+       if(toCheck.contentEquals("Apple IPhone 13"))
         System.out.println("passCheck");
         else
-        System.out.println("failing to find i phone 13 ");
+        System.out.println("failing to find Iphone 13 ");
 
         driver.close();
 
