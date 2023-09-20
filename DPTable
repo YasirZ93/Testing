@@ -1,0 +1,62 @@
+import java.sql.*;
+
+public class DPBase {
+    private Connection conConnection;
+    private Statement stmtStatement;
+    private ResultSet rsetResultSet;
+
+    public static String Phone_TDM = "NA";
+
+
+
+
+    public void openDBConnection(String sUrl, String sUserName, String sPassword) {
+        try {
+            String sDriverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+            Class.forName(sDriverName);
+            conConnection = DriverManager.getConnection(sUrl, sUserName, sPassword);
+        } catch (ClassNotFoundException e) {
+
+        } catch (SQLException e1) {
+
+        }
+    }
+
+    public ResultSet runQuery(String sQuery) {
+        try {
+            // to create statement
+            stmtStatement = conConnection.createStatement();
+            // to execute the query and assign the values to recordset
+            rsetResultSet = stmtStatement.executeQuery(sQuery);
+            System.out.println("runQuery == " + sQuery);
+        } catch (SQLException e) {
+            System.out.println("e.getMessage() == " + e.getMessage());
+        }
+        return rsetResultSet;
+    }
+
+
+    public void get_TDM_Data() throws SQLException {
+
+        String sQuery = null;
+        sQuery = "Select TOP 1 * from PhoneTable where RecordType='Iphone13' and  Providedby='Apple'";
+        Phone_TDM = rsetResultSet.getString("Iphone13").trim();
+    }
+
+
+    public void oracleCloseConnection() {
+        try {
+            // close the connection
+            conConnection.close();
+            rsetResultSet.close();
+        } catch (SQLException e) {
+        }
+
+
+
+
+
+
+
+    }
+}
